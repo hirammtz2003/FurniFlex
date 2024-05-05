@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>FurniFlex | Inicio</title>
+    <title>FurniFlex | Catálogo</title>
     <style>
         header{
             background-color: rgb(81, 163, 240);
@@ -66,35 +66,25 @@
             border: none; /* Sin borde */
             cursor: pointer; /* Cursor de apuntador */
         }
+        /* Estilos para el enlace de registro */
+        #registroLink {
+            text-decoration: none; /* Eliminar subrayado */
+            display: block; /* Hacer que el enlace ocupe todo el ancho disponible */
+            text-align: center; /* Centrar el texto */
+            margin-top: 20px; /* Margen superior */
+            font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuente */
+            color: blue; /* Color del texto */
+        }
     </style>
 </head>
 <body>
 <header>
-    <!-- Logotipo dentro de un enlace -->
     <a href="index.html" id="logoLink">
         <img src="logo.png" id="logoH" />
     </a>
-    <button onclick="gotoIniciarSesion()" name="botonInicioSesion" id="butIniSec">Iniciar Sesión</button>
-
 </header>
 
-<img src="inicio.png" id="furInicio" />
 
-<div id="textContainer">
-    <p>En esta plataforma brindaremos lo mejor de mobiliario para que se adapte a su entorno.</p>
-    <p>Amplia selección de <b>mobiliario para eventos, fiestas y banquetes.</b></p>
-    <p>Todos nuestros artículos están fabricados con materiales resistentes, durables y ecológicos</p>
-</div>
-
-<div id="fContainer">
-    fgdfgfd
-</div>
-
-<script>
-    function gotoIniciarSesion() {
-        window.location.href = "inicio_sesion.html";
-    }
-</script>
 
 </body>
 <footer></footer>

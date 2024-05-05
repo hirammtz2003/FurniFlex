@@ -48,7 +48,7 @@ $conn->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>FurniFlex</title>
+    <title>FurniFlex | Registro de usuario</title>
     <style>
         header{
             background-color: rgb(81, 163, 240);
