@@ -75,12 +75,7 @@ $conn->close();
         #logoH{ 
             position: relative;
             top: 30px;
-            left: 10px;
-        }
-        #furInicio{
-            position: relative;
-            top: 80px;
-            left: 900px;
+            left: 30px;
         }
         #textContainer{
             border: solid 3px rgb(233, 170, 22);
@@ -169,6 +164,8 @@ $conn->close();
     <a href="index.html" id="logoLink">
         <img src="logo.png" id="logoH" />
     </a>
+    <button onclick="gotoIniciarSesion()" name="botonInicioSesion" id="butIniSec">Iniciar Sesión</button>
+
 </header>
 
     <h2>Registro de Usuarios</h2>
@@ -212,8 +209,11 @@ $conn->close();
         <input type="submit" value="Registrarse">
     </form>
 
-<!-- Enlace para dirigir al usuario a la página de registro -->
-<a href="inicio_sesion.html" id="registroLink">Iniciar sesión</a>
+<script>
+    function gotoIniciarSesion() {
+        window.location.href = "inicio_sesion.html";
+    }
+</script>
 
 </body>
 <footer></footer>
