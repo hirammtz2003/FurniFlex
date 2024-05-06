@@ -1,30 +1,18 @@
 <?php
 include 'conexion.php';
 
-// Consulta para obtener la información de los artículos
-$sql = "SELECT id_artículo, Nombre, Descripción, Precio_renta, Cantidad_disponible FROM artículo_mobiliario";
+// Consulta para obtener los datos de los artículos
+$sql = "SELECT Nombre, Descripción, Precio_renta, Cantidad_disponible FROM artículo_mobiliario";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Output data of each row
+    // Salida de datos de cada fila
     while($row = $result->fetch_assoc()) {
-        // Aquí debes generar el HTML para cada panel utilizando los datos obtenidos de la consulta
-        echo "<div class='panel rosa-claro'>";
-        echo "<img src='mesas.jpg' alt='" . $row["Nombre"] . "'>";
-        echo "<div class='panel-text'>";
-        echo "<div class='panel-title'>" . $row["Nombre"] . "</div>";
-        echo "<div class='panel-description'>" . $row["Descripción"] . "</div>";
-        echo "<div class='panel-price'>$ " . $row["Precio_renta"] . "</div>";
-        echo "<div class='panel-availability'>" . $row["Cantidad_disponible"] . " disponibles</div>";
-        echo "<button class='add-to-cart-button'>Añadir a carrito</button>";
-        echo "</div>";
-        echo "</div>";
+        echo "Nombre: " . $row["Nombre"]. " - Descripción: " . $row["Descripción"]. " - Precio: " . $row["Precio_renta"]. " - Disponibilidad: " . $row["Cantidad_disponible"]. "<br>";
     }
 } else {
     echo "0 resultados";
 }
-
-// Cerrar conexión
 $conn->close();
 ?>
 
@@ -159,12 +147,12 @@ $conn->close();
 
 <div id="catalogo">
     <div class="panel rosa-claro">
-        <img src="mesas.jpg" alt="Mesas">
+        <img src="" alt="">
         <div class="panel-text">
-            <div class="panel-title">Mesas</div>
-            <div class="panel-description">Descripción de las mesas disponibles.</div>
-            <div class="panel-price">$ 100.00</div>
-            <div class="panel-availability">5 disponibles</div>
+            <div class="panel-title"></div>
+            <div class="panel-description"></div>
+            <div class="panel-price"></div>
+            <div class="panel-availability"></div>
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
     </div>
