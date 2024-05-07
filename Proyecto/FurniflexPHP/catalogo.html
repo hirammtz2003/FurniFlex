@@ -99,6 +99,27 @@
             font-size: 20px;
             font-weight: bold;
         }
+
+        .add-to-cart-button {
+            font-size: 16px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 40px; /* Ajusta la posición vertical según sea necesario */
+            left: 50%; /* Centra horizontalmente */
+            transform: translateX(-50%);
+            text-decoration: none;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -110,11 +131,11 @@
 
 <div id="catalogo">
     <a href="mesas.html" class="panel rosa-claro">
-        <img src="Mesas.jpg">
+        <img src="Mesa 1.jpg">
         <p>Mesas</p>
     </a>
     <a href="sillas.html" class="panel azul-claro">
-        <img src="Sillas.jpg">
+        <img src="Silla 1.jpg">
         <p>Sillas</p>
     </a>
     <a href="carpas.html" class="panel amarillo-claro">
@@ -126,6 +147,8 @@
         <p>Inflables</p>
     </a>
 </div>
+
+<a href="carrito.html" class="add-to-cart-button">Ver carrito</a>
 
 </body>
 <footer></footer>

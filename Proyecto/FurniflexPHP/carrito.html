@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>FurniFlex | Carrito</title>
+    <style>
+        header{
+            background-color: rgb(81, 163, 240);
+            width: 100%;
+            height: 100px;
+            margin: -8px;
+            border: solid 2px;
+        }
+        body{background-color: rgb(255, 255, 255);
+            width: 100%;
+            height: 100%;
+        }
+        #logoH{ 
+            position: relative;
+            top: 30px;
+            left: 30px;
+        }
+        #textContainer{
+            border: solid 3px rgb(233, 170, 22);
+            height: 200px;
+            width: 530px;
+            position: relative;
+            bottom: 300px;
+            left: 80px;
+            margin: 2px;
+            padding: 5px;
+        }
+        p{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        #fContainer{
+            background-color: rgb(249, 183, 216);
+            border:solid 2px rgb(18, 70, 118);
+            height: 30px;
+            width: 900px;
+            position: relative;
+            left: 30px;
+            bottom: 130px;
+        }
+        /* Estilos para el enlace del logotipo */
+        #logoLink {
+            text-decoration: none; /* Eliminar subrayado */
+            display: inline-block; /* Hacer que el enlace respete las dimensiones del logotipo */
+            background-color: transparent; /* Fondo transparente */
+            border: none; /* Sin borde */
+            cursor: pointer; /* Cursor de apuntador */
+        }
+        #tabla {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .panel img {
+            width: 280px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+         .panel {
+            width: 800px; /* Ancho del panel */
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start; /* Cambiado de center a flex-start */
+            justify-content: center;
+            border-radius: 10px;
+            background-color: #C9FFBF; /* Cambiado a verde claro */
+            padding: 20px; /* Añade espacio alrededor de la tabla */
+            margin-left: -500px; /* Añade un margen izquierdo para cargar el panel hacia la izquierda */
+            font-family: Verdana, Geneva, Tahoma, sans-serif; /* Aplica la tipografía al panel */
+        }
+        .panel table {
+            width: calc(100% - 40px); /* Ancho de la tabla ajustado al panel */
+            border-collapse: collapse;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: white;
+        }
+        .panel th,
+        .panel td {
+            border: 1px solid black;
+            padding: 5px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif; /* Aplica la tipografía a las celdas */
+        }
+        .panel th {
+            font-weight: bold; /* Hace que el texto en las celdas de encabezado esté en negrita */
+        }
+        .panel tbody tr:last-child td {
+            font-weight: bold; /* Hace que el texto en las celdas de la última fila esté en negrita */
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <a href="index.html" id="logoLink">
+        <img src="logo.png" id="logoH" />
+    </a>
+</header>
+
+<div id="tabla">
+    <div class="panel rosa-claro">
+        <table id="tablaProductos">
+            <thead>
+                <tr>
+                    <th style="width: 100px; border: 1px solid black;">ID</th>
+                    <th style="width: 100px; border: 1px solid black;">Cantidad</th>
+                    <th style="width: 100px; border: 1px solid black;">Precio total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
+                </tr>
+                <!-- Fila de total -->
+                <tr>
+                    <td style="border: 1px solid black;">TOTAL</td>
+                    <td style="border: 1px solid black;">X unidades</td>
+                    <td style="border: 1px solid black;">$00.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+<footer></footer>
+</html>
