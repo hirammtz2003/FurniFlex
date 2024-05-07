@@ -23,14 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificar si hay errores
     if (empty($errors)) {
-        // Hash de la contraseña
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        
 
         // Insertar datos en la base de datos
-        $sql = "INSERT INTO usuario (Nombre, Ap_paterno, Ap_materno, Domicilio, Num_tel, Email, Nombre_Usuario, Contraseña) VALUES ('$nombre', '$paterno', '$materno', '$domicilio', '$telefono', '$email', '$nombreUsuario', '$hashed_password')";
+        $sql = "INSERT INTO usuario (Nombre, Ap_paterno, Ap_materno, Domicilio, Num_tel, Email, Nombre_Usuario, Contraseña) VALUES ('$nombre', '$paterno', '$materno', '$domicilio', '$telefono', '$email', '$nombreUsuario', '$password')";
 
         if ($conn->query($sql) === TRUE) {
             echo "Registro exitoso";
+             // Redirigir al usuario a otra página
+            header("Location: catalogo.html");
+            exit(); // Asegurarse de que el script no continúe después de la redirección
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -53,45 +55,38 @@ $conn->close();
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="container">
     <h2>Registro de Usuarios</h2>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="input-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
         </div>
         <div class="input-group">
-            <label for="paterno">Apellido Paterno:</label>
-            <input type="text" id="paterno" name="paterno" required>
+            <input type="text" id="paterno" name="paterno" placeholder="Apellido Paterno" required>
         </div>
         <div class="input-group">
-            <label for="materno">Apellido Materno:</label>
-            <input type="text" id="materno" name="materno" required>
+            <input type="text" id="materno" name="materno" placeholder="Apellido Materno" required>
         </div>
         <div class="input-group">
-            <label for="domicilio">Domicilio:</label>
-            <input type="text" id="domicilio" name="domicilio" required>
+            <input type="text" id="domicilio" name="domicilio" placeholder="Domicilio" required>
         </div>
         <div class="input-group">
-            <label for="telefono">Número Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required>
+            <input type="tel" id="telefono" name="telefono" placeholder="Número Teléfono" required>
         </div>
         <div class="input-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" placeholder="Email"required>
         </div>
         <div class="input-group">
-            <label for="nombreUsuario">Nombre de Usuario:</label>
-            <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre de Usuario" required>
         </div>
         <div class="input-group">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" placeholder="Contraseña" required>
         </div>
         <div class="input-group">
-            <label for="confirm_password">Confirmar Contraseña:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmar Contraseña"required>
         </div>
         <input type="submit" value="Registrarse">
     </form>
+</div>
 </body>
 </html>
