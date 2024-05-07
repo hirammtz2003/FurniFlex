@@ -4,51 +4,22 @@
     <meta charset="UTF-8">
     <title>FurniFlex | Carrito</title>
     <style>
-        header{
+        header {
             background-color: rgb(81, 163, 240);
             width: 100%;
             height: 100px;
             margin: -8px;
             border: solid 2px;
         }
-        body{background-color: rgb(255, 255, 255);
+        body {
+            background-color: rgb(255, 255, 255);
             width: 100%;
             height: 100%;
         }
-        #logoH{ 
+        #logoH { 
             position: relative;
             top: 30px;
             left: 30px;
-        }
-        #textContainer{
-            border: solid 3px rgb(233, 170, 22);
-            height: 200px;
-            width: 530px;
-            position: relative;
-            bottom: 300px;
-            left: 80px;
-            margin: 2px;
-            padding: 5px;
-        }
-        p{
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
-        #fContainer{
-            background-color: rgb(249, 183, 216);
-            border:solid 2px rgb(18, 70, 118);
-            height: 30px;
-            width: 900px;
-            position: relative;
-            left: 30px;
-            bottom: 130px;
-        }
-        /* Estilos para el enlace del logotipo */
-        #logoLink {
-            text-decoration: none; /* Eliminar subrayado */
-            display: inline-block; /* Hacer que el enlace respete las dimensiones del logotipo */
-            background-color: transparent; /* Fondo transparente */
-            border: none; /* Sin borde */
-            cursor: pointer; /* Cursor de apuntador */
         }
         #tabla {
             display: flex;
@@ -60,8 +31,7 @@
             height: auto;
             margin-bottom: 10px;
         }
-
-         .panel {
+        .panel {
             width: 800px; /* Ancho del panel */
             height: auto;
             display: flex;
@@ -92,7 +62,6 @@
         .panel tbody tr:last-child td {
             font-weight: bold; /* Hace que el texto en las celdas de la última fila esté en negrita */
         }
-
     </style>
 </head>
 <body>
@@ -134,16 +103,42 @@
                     <td style="border: 1px solid black;"></td>
                 </tr>
                 <!-- Fila de total -->
-                <tr>
+                <tr id="filaTotales">
                     <td style="border: 1px solid black;">TOTAL</td>
-                    <td style="border: 1px solid black;">X unidades</td>
-                    <td style="border: 1px solid black;">$00.00</td>
+                    <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;"></td>
                 </tr>
             </tbody>
         </table>
     </div>
-
 </div>
+
+<script>
+    function calcularTotales() {
+        var tabla = document.getElementById("tablaProductos");
+        var filas = tabla.getElementsByTagName("tr");
+        var totalCantidad = 0;
+        var totalPrecio = 0;
+
+        // Empezamos desde 1 para omitir la fila de encabezados
+        for (var i = 1; i < filas.length - 1; i++) {
+            var celdas = filas[i].getElementsByTagName("td");
+            var cantidad = parseInt(celdas[1].innerText) || 0;
+            var precio = parseFloat(celdas[2].innerText.replace("$", "")) || 0;
+
+            totalCantidad += cantidad;
+            totalPrecio += precio;
+        }
+
+        // Actualizar la fila de totales
+        var filaTotales = filas[filas.length - 1].getElementsByTagName("td");
+        filaTotales[1].innerText = totalCantidad + " unidades";
+        filaTotales[2].innerText = "$" + totalPrecio.toFixed(2);
+    }
+
+    // Llamar a la función cuando se cargue la página
+    window.onload = calcularTotales;
+</script>
 
 </body>
 <footer></footer>
