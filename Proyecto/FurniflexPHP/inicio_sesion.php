@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Furni Flex - Iniciar Sesión</title>
     <style>
         body {
-            background-color: #87CEEB; /* Color azul cielo */
+            background-color: #87CEEB; 
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
