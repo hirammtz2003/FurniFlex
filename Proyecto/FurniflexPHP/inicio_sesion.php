@@ -5,6 +5,9 @@ include 'conexion.php';
 // Inicializar variables de sesión
 session_start();
 
+// Definir variables para los mensajes de error
+$mensaje_usuario = $mensaje_contraseña = "";
+
 // Verificar si se ha enviado el formulario de inicio de sesión
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recuperar los datos del formulario
@@ -28,11 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: catalogo.html");
             exit(); // Asegurar que el script no continúe después de la redirección
         } else {
-            echo "Contraseña incorrecta.";
-            
+            $mensaje_contraseña = "Contraseña incorrecta.";
         }
     } else {
-        echo "Usuario no encontrado.";
+        $mensaje_usuario = "Usuario no encontrado.";
     }
 }
 ?>
@@ -81,15 +83,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .error-message {
+            color: red;
+            text-align: left;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Furni Flex - Iniciar Sesión</h2>
+        <h2>Furni Flex - Iniciar sesión</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <input type="text" placeholder="Usuario" name="usuario" required><br>
+            <span class="error-message"><?php echo $mensaje_usuario; ?></span>
             <input type="password" placeholder="Contraseña" name="contraseña" required><br>
-            <input type="submit" value="Iniciar Sesión">
+            <span class="error-message"><?php echo $mensaje_contraseña; ?></span>
+            <input type="submit" value="Iniciar sesión">
         </form>
         <p>¿No tienes una cuenta? <a href="registro.php">Regístrate aquí</a></p>
     </div>
