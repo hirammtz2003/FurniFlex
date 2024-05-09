@@ -1,3 +1,12 @@
+<?php
+// Incluir el archivo de conexión a la base de datos
+include 'conexion.php';
+
+// Consulta SQL para obtener la información de los artículos
+$sql = "SELECT * FROM artículo_mobiliario WHERE id_artículo IN (9, 10, 11, 12)";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -126,50 +135,33 @@
 </header>
 
 <div id="catalogo">
-    <div class="panel amarillo-claro">
-        <img src="Carpa 1.jpeg" alt="Carpa 1">
-        <div class="panel-text">
-            <div class="panel-title">Carpa 1</div>
-            <div class="panel-description">Descripción de la carpa.</div>
-            <div class="panel-price">$ 100.00</div>
-            <div class="panel-availability">5 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
-    <div class="panel amarillo-claro">
-        <img src="Carpa 2.jpeg" alt="Carpa 2">
-        <div class="panel-text">
-            <div class="panel-title">Carpa 2</div>
-            <div class="panel-description">Descripción de la carpa.</div>
-            <div class="panel-price">$ 50.00</div>
-            <div class="panel-availability">10 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
-    <div class="panel amarillo-claro">
-        <img src="Carpa 3.jpeg" alt="Carpa 3">
-        <div class="panel-text">
-            <div class="panel-title">Carpa 3</div>
-            <div class="panel-description">Descripción de la carpa.</div>
-            <div class="panel-price">$ 200.00</div>
-            <div class="panel-availability">3 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
-    <div class="panel amarillo-claro">
-        <img src="Carpa 4.jpeg" alt="Carpa 4">
-        <div class="panel-text">
-            <div class="panel-title">Carpa 4</div>
-            <div class="panel-description">Descripción de la carpa.</div>
-            <div class="panel-price">$ 150.00</div>
-            <div class="panel-availability">7 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
+    <?php
+    // Verificar si hay resultados
+    if ($result->num_rows > 0) {
+        // Iterar sobre los resultados y mostrarlos en los paneles
+        while ($row = $result->fetch_assoc()) {
+            // Generar la ruta de la imagen basada en el ID del artículo
+            $imagen = "Carpa " . $row['id_artículo'] . ".jpeg";
+            ?>
+            <div class="panel amarillo-claro">
+                <!-- Muestra la imagen del artículo -->
+                <img src="<?php echo $imagen; ?>" alt="Carpa <?php echo $row['id_artículo']; ?>">
+                <!-- Aquí muestras la información de cada artículo -->
+                <div class="panel-text">
+                    <div class="panel-title"><?php echo $row['Nombre']; ?></div>
+                    <div class="panel-description"><?php echo $row['Descripción']; ?></div>
+                    <div class="panel-price">$ <?php echo $row['Precio_renta']; ?></div>
+                    <div class="panel-availability"><?php echo $row['Cantidad_disponible']; ?> disponibles</div>
+                    <input type="number" class="panel-input" placeholder="Ingresar cantidad">
+                    <button class="add-to-cart-button">Añadir a carrito</button>
+                </div>
+            </div>
+            <?php
+        }
+    } else {
+        echo "No se encontraron artículos.";
+    }
+    ?>
 </div>
 
 <script>

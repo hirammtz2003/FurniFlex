@@ -1,8 +1,17 @@
+<?php
+// Incluir el archivo de conexión a la base de datos
+include 'conexion.php';
+
+// Consulta SQL para obtener la información de los artículos
+$sql = "SELECT * FROM artículo_mobiliario WHERE id_artículo IN (13, 14, 15, 16)";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>FurniFlex | Catálogo | Mesas</title>
+    <title>FurniFlex | Catálogo | Inflables</title>
     <style>
         header{
             background-color: rgb(81, 163, 240);
@@ -65,8 +74,8 @@
             border-radius: 10px;
             padding-bottom: 20px;
         }
-        .rosa-claro {
-            background-color: #F4CCCC;
+        .naranja-claro {
+            background-color: #FFE599;
         }
         .panel img {
             width: 280px;
@@ -126,50 +135,33 @@
 </header>
 
 <div id="catalogo">
-    <div class="panel rosa-claro">
-        <img src="Mesa 1.jpeg" alt="Mesa 1">
-        <div class="panel-text">
-            <div class="panel-title">Mesa 1</div>
-            <div class="panel-description">Descripción de la mesa.</div>
-            <div class="panel-price">$ 100.00</div>
-            <div class="panel-availability">5 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
-    <div class="panel rosa-claro">
-        <img src="Mesa 2.jpeg" alt="Mesa 2">
-        <div class="panel-text">
-            <div class="panel-title">Mesa 2</div>
-            <div class="panel-description">Descripción de la mesa.</div>
-            <div class="panel-price">$ 50.00</div>
-            <div class="panel-availability">10 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
-    <div class="panel rosa-claro">
-        <img src="Mesa 3.jpeg" alt="Mesa 3">
-        <div class="panel-text">
-            <div class="panel-title">Mesa 3</div>
-            <div class="panel-description">Descripción de la mesa.</div>
-            <div class="panel-price">$ 200.00</div>
-            <div class="panel-availability">3 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
-    <div class="panel rosa-claro">
-        <img src="Mesa 4.jpeg" alt="Mesa 4">
-        <div class="panel-text">
-            <div class="panel-title">Mesa 4</div>
-            <div class="panel-description">Descripción de la mesa.</div>
-            <div class="panel-price">$ 150.00</div>
-            <div class="panel-availability">7 disponibles</div>
-            <input type="number" class="panel-input" placeholder="Ingresar cantidad">
-            <button class="add-to-cart-button">Añadir a carrito</button>
-        </div>
-    </div>
+    <?php
+    // Verificar si hay resultados
+    if ($result->num_rows > 0) {
+        // Iterar sobre los resultados y mostrarlos en los paneles
+        while ($row = $result->fetch_assoc()) {
+            // Generar la ruta de la imagen basada en el ID del artículo
+            $imagen = "Inflable " . $row['id_artículo'] . ".jpeg";
+            ?>
+            <div class="panel naranja-claro">
+                <!-- Muestra la imagen del artículo -->
+                <img src="<?php echo $imagen; ?>" alt="Inflable <?php echo $row['id_artículo']; ?>">
+                <!-- Aquí muestras la información de cada artículo -->
+                <div class="panel-text">
+                    <div class="panel-title"><?php echo $row['Nombre']; ?></div>
+                    <div class="panel-description"><?php echo $row['Descripción']; ?></div>
+                    <div class="panel-price">$ <?php echo $row['Precio_renta']; ?></div>
+                    <div class="panel-availability"><?php echo $row['Cantidad_disponible']; ?> disponibles</div>
+                    <input type="number" class="panel-input" placeholder="Ingresar cantidad">
+                    <button class="add-to-cart-button">Añadir a carrito</button>
+                </div>
+            </div>
+            <?php
+        }
+    } else {
+        echo "No se encontraron artículos.";
+    }
+    ?>
 </div>
 
 <script>
@@ -185,4 +177,4 @@
 
 </body>
 <footer></footer>
-</html>
+</html
