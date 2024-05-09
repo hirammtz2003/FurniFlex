@@ -1,3 +1,82 @@
+<?php 
+include 'conexion.php';
+
+// Consulta SQL para obtener el artículo según su ID
+$sql = "SELECT Nombre,Descripción,Precio_renta,Cantidad_disponible FROM artículo_mobiliario WHERE Id_artículo = 8";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Mostrar los datos del artículo
+    $row = $result->fetch_assoc();
+    $articulo = $row["Nombre"];
+    $descripcion = $row["Descripción"];
+    $precio = "$ ". $row["Precio_renta"];
+    $cantiDisp = $row["Cantidad_disponible"]." disponibles";
+
+} else {
+    echo "No se encontraron resultados para el ID proporcionado";
+}
+
+// Consulta SQL para obtener el artículo según su ID
+$sql1 = "SELECT Nombre,Descripción,Precio_renta,Cantidad_disponible FROM artículo_mobiliario WHERE Id_artículo = 7";
+
+$result1 = $conn->query($sql1);
+
+if ($result1->num_rows > 0) {
+    // Mostrar los datos del artículo
+    $row1 = $result1->fetch_assoc();
+    $articulo1 = $row1["Nombre"];
+    $descripcion1 = $row1["Descripción"];
+    $precio1 = "$ ". $row1["Precio_renta"];
+    $cantiDisp1 = $row1["Cantidad_disponible"]." disponibles";
+
+} else {
+    echo "No se encontraron resultados para el ID proporcionado";
+}
+
+// Consulta SQL para obtener el artículo según su ID
+$sql2 = "SELECT Nombre,Descripción,Precio_renta,Cantidad_disponible FROM artículo_mobiliario WHERE Id_artículo = 6";
+
+$result2 = $conn->query($sql2);
+
+if ($result2->num_rows > 0) {
+    // Mostrar los datos del artículo
+    $row2 = $result2->fetch_assoc();
+    $articulo2 = $row2["Nombre"];
+    $descripcion2 = $row2["Descripción"];
+    $precio2 = "$ ". $row2["Precio_renta"];
+    $cantiDisp2 = $row2["Cantidad_disponible"]." disponibles";
+
+} else {
+    echo "No se encontraron resultados para el ID proporcionado";
+}
+
+// Consulta SQL para obtener el artículo según su ID
+$sql3 = "SELECT Nombre,Descripción,Precio_renta,Cantidad_disponible FROM artículo_mobiliario WHERE Id_artículo = 5";
+
+$result3 = $conn->query($sql3);
+
+if ($result3->num_rows > 0) {
+    // Mostrar los datos del artículo
+    $row3 = $result3->fetch_assoc();
+    $articulo3 = $row3["Nombre"];
+    $descripcion3 = $row3["Descripción"];
+    $precio3 = "$ ". $row3["Precio_renta"];
+    $cantiDisp3 = $row3["Cantidad_disponible"]." disponibles";
+
+} else {
+    echo "No se encontraron resultados para el ID proporcionado";
+}
+
+// Cerrar conexión
+$conn->close();
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -129,10 +208,10 @@
     <div class="panel azul-claro">
         <img src="Silla 1.jpeg" alt="Silla 1">
         <div class="panel-text">
-            <div class="panel-title">Silla 1</div>
-            <div class="panel-description">Descripción de la silla.</div>
-            <div class="panel-price">$ 100.00</div>
-            <div class="panel-availability">5 disponibles</div>
+            <div class="panel-title"><?php echo $articulo; ?></div>
+            <div class="panel-description"><?php echo $descripcion; ?></div>
+            <div class="panel-price"><?php echo $precio; ?></div>
+            <div class="panel-availability"><?php echo $cantiDisp; ?></div>
             <input type="number" class="panel-input" placeholder="Ingresar cantidad">
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
@@ -140,10 +219,10 @@
     <div class="panel azul-claro">
         <img src="Silla 2.jpeg" alt="Silla 2">
         <div class="panel-text">
-            <div class="panel-title">Silla 2</div>
-            <div class="panel-description">Descripción de la silla.</div>
-            <div class="panel-price">$ 50.00</div>
-            <div class="panel-availability">10 disponibles</div>
+            <div class="panel-title"><?php echo $articulo1; ?></div>
+            <div class="panel-description"><?php echo $descripcion1; ?></div>
+            <div class="panel-price"><?php echo $precio1; ?></div>
+            <div class="panel-availability"><?php echo $cantiDisp1; ?></div>
             <input type="number" class="panel-input" placeholder="Ingresar cantidad">
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
@@ -151,10 +230,10 @@
     <div class="panel azul-claro">
         <img src="Silla 3.jpeg" alt="Silla 3">
         <div class="panel-text">
-            <div class="panel-title">Silla 3</div>
-            <div class="panel-description">Descripción de la silla.</div>
-            <div class="panel-price">$ 200.00</div>
-            <div class="panel-availability">3 disponibles</div>
+            <div class="panel-title"><?php echo $articulo2; ?></div>
+            <div class="panel-description"><?php echo $descripcion2; ?></div>
+            <div class="panel-price"><?php echo $precio2; ?></div>
+            <div class="panel-availability"><?php echo $cantiDisp2; ?></div>
             <input type="number" class="panel-input" placeholder="Ingresar cantidad">
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
@@ -162,10 +241,10 @@
     <div class="panel azul-claro">
         <img src="Silla 4.jpeg" alt="Silla 4">
         <div class="panel-text">
-            <div class="panel-title">Silla 4</div>
-            <div class="panel-description">Descripción de la silla.</div>
-            <div class="panel-price">$ 150.00</div>
-            <div class="panel-availability">7 disponibles</div>
+            <div class="panel-title"><?php echo $articulo3; ?></div>
+            <div class="panel-description"><?php echo $descripcion3; ?></div>
+            <div class="panel-price"><?php echo $precio3; ?></div>
+            <div class="panel-availability"><?php echo $cantiDisp3; ?></div>
             <input type="number" class="panel-input" placeholder="Ingresar cantidad">
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
