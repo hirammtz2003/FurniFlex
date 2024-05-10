@@ -12,6 +12,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>FurniFlex | Catálogo | Mesas</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         header{
             background-color: rgb(81, 163, 240);
@@ -143,7 +144,7 @@ $result = $conn->query($sql);
             // Generar la ruta de la imagen basada en el ID del artículo
             $imagen = "Mesa " . $row['id_artículo'] . ".jpeg";
             ?>
-            <div class="panel rosa-claro">
+            <div class="panel rosa-claro" data-id="<?php echo $row['id_artículo']; ?>">
                 <!-- Muestra la imagen del artículo -->
                 <img src="<?php echo $imagen; ?>" alt="Mesa <?php echo $row['id_artículo']; ?>">
                 <!-- Aquí muestras la información de cada artículo -->
@@ -165,12 +166,44 @@ $result = $conn->query($sql);
 </div>
 
 <script>
-    var addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+    // Evento de clic para el botón "Añadir a carrito"
+    $('.add-to-cart-button').click(function() {
+        // Obtener el panel del artículo asociado al botón
+        var panel = $(this).closest('.panel');
 
-    addToCartButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var input = button.previousElementSibling;
-            input.value = '';
+        // Recopilar la información del artículo
+        var nombre = panel.find('.panel-title').text();
+        var precio = panel.find('.panel-price').text().replace('$', '').trim();
+        var cantidad = panel.find('.panel-input').val();
+        // Obtener el id_artículo del contenedor del panel
+        var id_articulo = panel.data('id');
+
+        // Objeto con los datos a enviar al servidor
+        var data = {
+            id_articulo: id_articulo,
+            nombre: nombre,
+            precio: precio,
+            cantidad: cantidad
+        };
+
+        // Enviar una solicitud AJAX para insertar los datos en la tabla item_articulo
+        $.ajax({
+            url: 'insertar_item.php', // URL del script PHP que maneja la inserción
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                // Manejar la respuesta del servidor
+                if (response === 'success') {
+                    alert('El artículo se ha añadido al carrito correctamente.');
+                    // Borrar el número ingresado en el input
+                    panel.find('.panel-input').val('');
+                } else {
+                    alert('Error al añadir el artículo al carrito. Inténtalo de nuevo más tarde.');
+                }
+            },
+            error: function() {
+                alert('Error al procesar la solicitud. Inténtalo de nuevo más tarde.');
+            }
         });
     });
 </script>

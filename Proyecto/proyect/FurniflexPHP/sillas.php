@@ -205,7 +205,7 @@ $conn->close();
 </header>
 
 <div id="catalogo">
-    <div class="panel azul-claro">
+    <div class="panel azul-claro" data-id="8">
         <img src="Silla 1.jpeg" alt="Silla 1">
         <div class="panel-text">
             <div class="panel-title"><?php echo $articulo; ?></div>
@@ -216,7 +216,7 @@ $conn->close();
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
     </div>
-    <div class="panel azul-claro">
+    <div class="panel azul-claro" data-id="7">
         <img src="Silla 2.jpeg" alt="Silla 2">
         <div class="panel-text">
             <div class="panel-title"><?php echo $articulo1; ?></div>
@@ -227,7 +227,7 @@ $conn->close();
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
     </div>
-    <div class="panel azul-claro">
+    <div class="panel azul-claro" data-id="6">
         <img src="Silla 3.jpeg" alt="Silla 3">
         <div class="panel-text">
             <div class="panel-title"><?php echo $articulo2; ?></div>
@@ -238,7 +238,7 @@ $conn->close();
             <button class="add-to-cart-button">Añadir a carrito</button>
         </div>
     </div>
-    <div class="panel azul-claro">
+    <div class="panel azul-claro" data-id="5">
         <img src="Silla 4.jpeg" alt="Silla 4">
         <div class="panel-text">
             <div class="panel-title"><?php echo $articulo3; ?></div>
@@ -251,13 +251,46 @@ $conn->close();
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    var addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+    // Evento de clic para el botón "Añadir a carrito"
+    $('.add-to-cart-button').click(function() {
+        // Obtener el panel del artículo asociado al botón
+        var panel = $(this).closest('.panel');
 
-    addToCartButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var input = button.previousElementSibling;
-            input.value = '';
+        // Recopilar la información del artículo
+        var nombre = panel.find('.panel-title').text();
+        var precio = panel.find('.panel-price').text().replace('$', '').trim();
+        var cantidad = panel.find('.panel-input').val();
+        // Obtener el id_artículo del contenedor del panel
+        var id_articulo = panel.data('id');
+
+        // Objeto con los datos a enviar al servidor
+        var data = {
+            id_articulo: id_articulo,
+            nombre: nombre,
+            precio: precio,
+            cantidad: cantidad
+        };
+
+        // Enviar una solicitud AJAX para insertar los datos en la tabla item_articulo
+        $.ajax({
+            url: 'insertar_item.php', // URL del script PHP que maneja la inserción
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                // Manejar la respuesta del servidor
+                if (response === 'success') {
+                    alert('El artículo se ha añadido al carrito correctamente.');
+                    // Borrar el número ingresado en el input
+                    panel.find('.panel-input').val('');
+                } else {
+                    alert('Error al añadir el artículo al carrito. Inténtalo de nuevo más tarde.');
+                }
+            },
+            error: function() {
+                alert('Error al procesar la solicitud. Inténtalo de nuevo más tarde.');
+            }
         });
     });
 </script>
