@@ -62,6 +62,11 @@
         .panel tbody tr:last-child td {
             font-weight: bold; /* Hace que el texto en las celdas de la última fila esté en negrita */
         }
+        .panel td:nth-child(3),
+        .panel td:nth-child(4),
+        .panel td:nth-child(5) {
+            text-align: right; /* Alinea el contenido de las celdas de la tercera, cuarta y quinta columna a la derecha */
+        }
     </style>
 </head>
 <body>
@@ -76,36 +81,47 @@
         <table id="tablaProductos">
             <thead>
                 <tr>
-                    <th style="width: 100px; border: 1px solid black;">ID</th>
-                    <th style="width: 100px; border: 1px solid black;">Cantidad</th>
-                    <th style="width: 100px; border: 1px solid black;">Precio total</th>
+                    <th style="width: auto; border: 1px solid black;">ID</th>
+                    <th style="width: auto; border: 1px solid black;">Nombre</th>
+                    <th style="width: auto; border: 1px solid black;">Cantidad</th>
+                    <th style="width: auto; border: 1px solid black;">Precio unitario</th>
+                    <th style="width: auto; border: 1px solid black;">Precio total</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                    <td style="border: 1px solid black;"></td>
-                </tr>
+                <?php
+                // Incluir el archivo de conexión a la base de datos
+                include 'conexion.php';
+
+                // Consulta SQL para obtener los registros de la tabla item_articulo
+                $sql = "SELECT id_item, Nombre, Cantidad, Precio FROM item_articulo";
+                $result = $conn->query($sql);
+
+                // Verificar si hay resultados
+                if ($result->num_rows > 0) {
+                    // Iterar sobre los resultados y mostrarlos en la tabla
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["id_item"] . "</td>";
+                        echo "<td>" . $row["Nombre"] . "</td>";
+                        echo "<td contenteditable='true' oninput='calcularTotal(this.parentNode);'>" . $row["Cantidad"] . "</td>";
+                        echo "<td contenteditable='true' oninput='calcularTotal(this.parentNode);'>" . number_format($row["Precio"], 2) . "</td>";
+                        echo "<td></td>"; // La columna para el precio total se llenará dinámicamente con JavaScript
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "No se encontraron registros en la tabla item_articulo.";
+                }
+
+                // Cerrar la conexión a la base de datos
+                $conn->close();
+                ?>
                 <!-- Fila de total -->
                 <tr id="filaTotales">
+                    <td style="border: 1px solid black;">   —</td>
                     <td style="border: 1px solid black;">TOTAL</td>
                     <td style="border: 1px solid black;"></td>
+                    <td style="border: 1px solid black;">   —</td>
                     <td style="border: 1px solid black;"></td>
                 </tr>
             </tbody>
@@ -123,17 +139,33 @@
         // Empezamos desde 1 para omitir la fila de encabezados
         for (var i = 1; i < filas.length - 1; i++) {
             var celdas = filas[i].getElementsByTagName("td");
-            var cantidad = parseInt(celdas[1].innerText) || 0;
-            var precio = parseFloat(celdas[2].innerText.replace("$", "")) || 0;
+            var cantidad = parseInt(celdas[2].innerText) || 0;
+            var precio = parseFloat(celdas[3].innerText.replace(/,/g, "")) || 0;
 
             totalCantidad += cantidad;
-            totalPrecio += precio;
+            totalPrecio += cantidad * precio;
+
+            celdas[4].innerText = numberWithCommas((cantidad * precio).toFixed(2));
         }
 
         // Actualizar la fila de totales
         var filaTotales = filas[filas.length - 1].getElementsByTagName("td");
-        filaTotales[1].innerText = totalCantidad + " unidades";
-        filaTotales[2].innerText = "$" + totalPrecio.toFixed(2);
+        filaTotales[2].innerText = numberWithCommas(totalCantidad) + " unidades";
+        filaTotales[4].innerText = "$" + numberWithCommas(totalPrecio.toFixed(2));
+    }
+
+    function calcularTotal(fila) {
+        var cantidad = parseInt(fila.cells[2].innerText.replace(/,/g, "")) || 0;
+        var precio = parseFloat(fila.cells[3].innerText.replace("$", "").replace(/,/g, "")) || 0;
+
+        fila.cells[4].innerText = "$" + numberWithCommas((cantidad * precio).toFixed(2));
+
+        calcularTotales();
+    }
+
+    // Función para agregar comas a los números
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     // Llamar a la función cuando se cargue la página
