@@ -11,11 +11,11 @@ $mensaje_usuario = $mensaje_contraseña = "";
 // Verificar si se ha enviado el formulario de inicio de sesión
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recuperar los datos del formulario
-    $usuario = $_POST['usuario'];
+    $campo = $_POST['campo'];
     $contraseña = $_POST['contraseña'];
 
     // Consulta para verificar las credenciales del usuario
-    $sql = "SELECT * FROM usuario WHERE Nombre_Usuario='$usuario'";
+    $sql = "SELECT * FROM usuario WHERE Nombre_Usuario ='$campo' OR Email='$campo'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <h2>Furni Flex - Iniciar sesión</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <input type="text" placeholder="Usuario" name="usuario" required><br>
+            <input type="text" placeholder="Usuario o E-mail" name="campo" required><br>
             <span class="error-message"><?php echo $mensaje_usuario; ?></span>
             <input type="password" placeholder="Contraseña" name="contraseña" required><br>
             <span class="error-message"><?php echo $mensaje_contraseña; ?></span>
