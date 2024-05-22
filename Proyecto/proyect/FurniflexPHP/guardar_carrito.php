@@ -1,6 +1,15 @@
 <?php
+
+
+
 // Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario'])) {
+    header("Problema al intentar guardar");
+    exit();
+}
 
 // Obtener los datos del formulario
 $idItems = json_decode($_POST['id_items']);

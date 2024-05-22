@@ -1,6 +1,15 @@
 <?php
+
+
+
 // Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario'])) {
+    header("Problema al intentar insertar");
+    exit();
+}
+
 
 // Verificar si se han enviado datos mediante POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,9 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio = $_POST['precio'];
     $cantidad = $_POST['cantidad'];
     $id_articulo = $_POST['id_articulo'];
+    $id_usuario = $_SESSION['id_usuario'];
+    
 
     // Preparar la consulta SQL para insertar los datos en la tabla item_articulo
-    $sql_insert = "INSERT INTO item_articulo (id_artículo, Nombre, Precio, Cantidad) VALUES (?, ?, ?, ?)";
+    $sql_insert = "INSERT INTO item_articulo (id_artículo, Nombre, Precio, Cantidad,id_usuario) VALUES (?, ?, ?, ?,$id_usuario)";
     $stmt_insert = $conn->prepare($sql_insert);
     $stmt_insert->bind_param("issi", $id_articulo, $nombre, $precio, $cantidad);
 

@@ -1,6 +1,13 @@
 <?php
 // Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario'])) {
+    header("Location: inicio_sesion.php");
+    exit();
+}
+
+$usuario = $_SESSION['usuario'];
 
 // Consulta SQL para obtener la información de los artículos
 $sql = "SELECT * FROM artículo_mobiliario WHERE id_artículo IN (13, 14, 15, 16)";
@@ -126,6 +133,25 @@ $result = $conn->query($sql);
         .add-to-cart-button:hover {
             background-color: #45a049;
         }
+        #user{
+            height: 50px;
+            width: 150px;
+            position: relative;
+            top: -24px;
+            left: 1085px;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: purple;
+        }
+        #userH{
+            height: 50px;
+            width: 50px;
+            position: relative;
+            top: 23px;
+            left: 900px;
+            
+        }
     </style>
 </head>
 <body>
@@ -133,6 +159,8 @@ $result = $conn->query($sql);
     <a href="index.html" id="logoLink">
         <img src="logo.png" id="logoH" />
     </a>
+    <img src="user.png" id="userH" />
+    <h3 id="user"><?php echo $usuario; ?></h3>
 </header>
 
 <div id="catalogo">

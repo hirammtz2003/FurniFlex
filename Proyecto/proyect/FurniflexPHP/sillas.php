@@ -1,5 +1,12 @@
 <?php 
 include 'conexion.php';
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario'])) {
+    header("Location: inicio_sesion.php");
+    exit();
+}
+
+$usuario = $_SESSION['usuario'];
 
 // Consulta SQL para obtener el artículo según su ID
 $sql = "SELECT Nombre,Descripción,Precio_renta,Cantidad_disponible FROM artículo_mobiliario WHERE Id_artículo = 8";
@@ -195,6 +202,25 @@ $conn->close();
         .add-to-cart-button:hover {
             background-color: #45a049;
         }
+        #user{
+            height: 50px;
+            width: 150px;
+            position: relative;
+            top: -24px;
+            left: 1085px;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: purple;
+        }
+        #userH{
+            height: 50px;
+            width: 50px;
+            position: relative;
+            top: 23px;
+            left: 900px;
+            
+        }
     </style>
 </head>
 <body>
@@ -202,6 +228,8 @@ $conn->close();
     <a href="index.html" id="logoLink">
         <img src="logo.png" id="logoH" />
     </a>
+    <img src="user.png" id="userH" />
+    <h3 id="user"><?php echo $usuario; ?></h3>
 </header>
 
 <div id="catalogo">

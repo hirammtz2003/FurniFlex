@@ -1,9 +1,10 @@
 <?php
+// Inicializar variables de sesión
+
 // Incluir el archivo de conexión a la base de datos
 include 'conexion.php';
 
-// Inicializar variables de sesión
-session_start();
+
 
 // Definir variables para los mensajes de error
 $mensaje_usuario = $mensaje_contraseña = "";
@@ -25,10 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar si la contraseña coincide
         if ($contraseña==$stored_password) {
             // Las credenciales son válidas, establecer una variable de sesión
-            $_SESSION['usuario'] = $usuario;
+            
+            $_SESSION['usuario'] = $row['Nombre_Usuario'];
+            $_SESSION['id_usuario'] = $row['id_usuario'];
 
             // Redirigir al usuario a la página de inicio después de iniciar sesión exitosamente
-            header("Location: catalogo.html");
+            header("Location: catalogo.php");
             exit(); // Asegurar que el script no continúe después de la redirección
         } else {
             $mensaje_contraseña = "Contraseña incorrecta.";

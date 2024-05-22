@@ -1,3 +1,18 @@
+<?php 
+ // Incluir el archivo de conexión a la base de datos
+ include 'conexion.php';
+
+ // Verificar si el usuario ha iniciado sesión
+ if (!isset($_SESSION['usuario'])) {
+     header("Location: inicio_sesion.php");
+     exit();
+ }
+ 
+ $id_usuario = $_SESSION['id_usuario'];
+ $usuario = $_SESSION['usuario'];
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -90,6 +105,25 @@
         .save-cart-button:hover {
             background-color: #45a049;
         }
+        #user{
+            height: 50px;
+            width: 150px;
+            position: relative;
+            top: -24px;
+            left: 1085px;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: purple;
+        }
+        #userH{
+            height: 50px;
+            width: 50px;
+            position: relative;
+            top: 23px;
+            left: 900px;
+            
+        }
     </style>
 </head>
 <body>
@@ -97,6 +131,8 @@
     <a href="index.html" id="logoLink">
         <img src="logo.png" id="logoH" />
     </a>
+    <img src="user.png" id="userH" />
+    <h3 id="user"><?php echo $usuario; ?></h3>
 </header>
 
 <div id="tabla">
@@ -113,11 +149,9 @@
             </thead>
             <tbody>
                 <?php
-                // Incluir el archivo de conexión a la base de datos
-                include 'conexion.php';
-
+               
                 // Consulta SQL para obtener los registros de la tabla item_articulo
-                $sql = "SELECT id_item, Nombre, Cantidad, Precio FROM item_articulo";
+                $sql = "SELECT id_item, Nombre, Cantidad, Precio, id_usuario FROM item_articulo WHERE id_usuario = $id_usuario" ;
                 $result = $conn->query($sql);
 
                 // Verificar si hay resultados

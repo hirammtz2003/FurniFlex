@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Configuración de la base de datos
 $servername = "database-furniflex.ct4csksmup3s.us-east-2.rds.amazonaws.com";
 $username = "admin";
